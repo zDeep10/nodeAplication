@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// DB CONNECTION
+// DB CONNECTION AND CONFIG
 
 mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
@@ -22,6 +22,8 @@ connection.once("open", () => {
 });
 
 const { Todo, User } = require("./models/Todo");
+
+// REQUESTS
 
 // ! GET METHOD
 
@@ -83,7 +85,7 @@ app.put("/todos/complete/:id", async (req, res) => {
   res.json(todo);
 });
 
-// listen
+// LISTEN
 
 app.listen(process.env.PORT || 3001, () =>
   console.log("Server started on port 3001")
