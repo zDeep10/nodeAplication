@@ -17,6 +17,10 @@ const TodoSchema = new Schema({
 });
 
 const UserSchema = new Schema({
+  user: {
+    type: String,
+    require: true,
+  },
   email: {
     type: String,
     require: true,

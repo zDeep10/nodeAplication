@@ -73,12 +73,34 @@ app.delete("/todos/delete/:id", async (req, res) => {
   return res.status(200).send(result);
 });
 
+app.delete("/deleteAll/todo", async (req, res) => {
+  const result = await Todo.deleteMany({ complete: false });
+
+  return res.status(200).send(result);
+});
+
+app.delete("/deleteAll/done", async (req, res) => {
+  const result = await Todo.deleteMany({ complete: true });
+
+  return res.status(200).send(result);
+});
+
 // ! UPDATE METHOD
 
 app.put("/todos/complete/:id", async (req, res) => {
   const todo = await Todo.findById(req.params.id);
 
   todo.complete = !todo.complete;
+
+  todo.save();
+
+  res.json(todo);
+});
+
+app.put("/todos/update/:id", async (req, res) => {
+  const todo = await Todo.findById(req.params.id);
+
+  todo.text = req.body.text;
 
   todo.save();
 
