@@ -74,14 +74,20 @@ app.delete("/todos/delete/:id", async (req, res) => {
   return res.status(200).send(result);
 });
 
-app.delete("/deleteAll/todo", async (req, res) => {
-  const result = await Todo.deleteMany({ complete: false });
+app.delete("/deleteAll/todo/:id", async (req, res) => {
+  const result = await Todo.deleteMany({
+    userID: req.params.id,
+    complete: false,
+  });
 
   return res.status(200).send(result);
 });
 
-app.delete("/deleteAll/done", async (req, res) => {
-  const result = await Todo.deleteMany({ complete: true });
+app.delete("/deleteAll/done/:id", async (req, res) => {
+  const result = await Todo.deleteMany({
+    userID: req.params.id,
+    complete: true,
+  });
 
   return res.status(200).send(result);
 });
