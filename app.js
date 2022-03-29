@@ -28,8 +28,9 @@ const { Todo, User } = require("./models/Todo");
 // ! GET METHOD
 
 // * TODO
-app.get("/todos", async (req, res) => {
-  const todos = await Todo.find();
+app.get("/todos/:id", async (req, res) => {
+  const taskID = req.params.id;
+  const todos = await Todo.find({ userID: taskID });
 
   res.json(todos);
 });
@@ -56,6 +57,7 @@ app.post("/users/new", async (req, res) => {
 app.post("/todos/new", async (req, res) => {
   const task = await new Todo({
     text: req.body.text,
+    userID: req.body.userID,
   });
 
   task.save();
@@ -66,7 +68,6 @@ app.post("/todos/new", async (req, res) => {
 // ! DELETE METHOD
 
 // * TODO
-
 app.delete("/todos/delete/:id", async (req, res) => {
   const result = await Todo.findByIdAndRemove(req.params.id);
 

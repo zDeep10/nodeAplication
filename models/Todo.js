@@ -14,6 +14,10 @@ const TodoSchema = new Schema({
     type: String,
     default: Date.now(),
   },
+  userID: {
+    type: String,
+    require: true,
+  },
 });
 
 const UserSchema = new Schema({
